@@ -3,6 +3,9 @@ vim.g.mapleader = " ";
 vim.keymap.set("n", "<C-w>", vim.cmd.Ex);
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true })
 
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
+
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
