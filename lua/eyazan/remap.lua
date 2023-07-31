@@ -1,6 +1,6 @@
 vim.g.mapleader = " ";
 
-vim.keymap.set("n", "<C-w>", vim.cmd.Ex);
+vim.keymap.set("n", "<leader>e", vim.cmd.Ex);
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true })
 
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
@@ -25,6 +25,9 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
 vim.opt.guicursor = ""
 
 vim.opt.nu = true
@@ -43,3 +46,11 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.updatetime = 50
+
+vim.opt.scrolloff = 10
+
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
+
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
