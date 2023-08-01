@@ -1,6 +1,6 @@
 local lsp = require('lsp-zero').preset({})
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
   -- see :help lsp-zero-keybindings
   -- to learn the available actions
   lsp.default_keymaps({buffer = bufnr})
@@ -12,15 +12,13 @@ lsp.preset("recommended")
 
 lsp.ensure_installed({
   'tsserver',
-  'rust_analyzer',
+  'rust_analyzer'
 })
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
 
 local cmp = require('cmp')
-
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
 
 local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-y>'] = cmp.mapping.confirm({ select = true }),
@@ -30,7 +28,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
-lsp.on_attach(function(client, bufnr)
+lsp.on_attach(function(_, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
@@ -57,6 +55,24 @@ lsp.set_preferences({
         info = 'I'
     }
 })
+
+local lspconfig = require 'lspconfig'
+local configs = require 'lspconfig/configs'
+
+if not configs.golangcilsp then
+ 	configs.golangcilsp = {
+		default_config = {
+			cmd = {'golangci-lint-langserver'},
+			root_dir = lspconfig.util.root_pattern('.git', 'go.mod'),
+			init_options = {
+					command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1" };
+			}
+		};
+	}
+end
+lspconfig.golangci_lint_ls.setup {
+	filetypes = {'go','gomod'}
+}
 
 lsp.setup()
 
