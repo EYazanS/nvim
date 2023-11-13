@@ -21,6 +21,8 @@ return require('packer').startup(function(use)
 
     use('tpope/vim-fugitive')
 
+    use('ThePrimeagen/vim-be-good')
+
     -- These optional plugins should be loaded directly because of a bug in Packer lazy loading
     use 'nvim-tree/nvim-web-devicons' -- OPTIONAL: for file icons
     use 'lewis6991/gitsigns.nvim'     -- OPTIONAL: for git status
